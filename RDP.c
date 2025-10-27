@@ -26,62 +26,72 @@ void print_trace(const char *func) {
     printf("%-5d | %-8s | %-s\n", step++, func, &input[i]);
 }
 
-// Helper: match and consume expected character
-void match(char expected) {
+void match(char ch)
+{
     print_trace("match");
-    if (input[i] == expected)
-        i++;
+    if (input[i]==ch) i++;
     else {
-        printf("\nError at position %d: Expected '%c'\n", i + 1, expected);
-        exit(1);
+        printf("\nInvalid ");
+        exit(0);
     }
 }
-
-// Grammar rule implementations with tracing
-void E() {
-    print_trace("E");
+ void E()
+ {
+    printf("E");
     T();
     Eprime();
-}
 
-void Eprime() {
+ }
+
+ void Eprime()
+ {
     print_trace("E'");
-    if (input[i] == '+') {
+    if (input[i]=='+')
+    {
         match('+');
         T();
         Eprime();
     }
-}
+ }
 
-void T() {
+ void T()
+ {
     print_trace("T");
     F();
     Tprime();
-}
+ 
+ }
 
-void Tprime() {
+ void Tprime()
+ {
     print_trace("T'");
-    if (input[i] == '*') {
+    if (input[i]=='*')
+    {
         match('*');
         F();
         Tprime();
     }
-}
+ }
 
-void F() {
+ void F()
+ {
     print_trace("F");
-    if (input[i] == '(') {
+    if (input[i]=='(')
+    {
         match('(');
         E();
         match(')');
-    } else if (isalpha(input[i])) { // id = single letter
-        match(input[i]);
-    } else {
-        printf("\nError at position %d: Invalid symbol '%c'\n", i + 1, input[i]);
-        exit(1);
     }
-}
-
+    else if (isalpha(input[i]))
+    {
+        match(input[i]);
+    }
+    else
+    {
+        printf("\nInvalid ");
+        exit(0);
+    }   
+ }
 int main() {
     printf("Enter an expression: ");
     scanf("%s", input);
