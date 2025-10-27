@@ -1,0 +1,5 @@
+alice@gmail.com
+bob@org.net
+invalid_email
+123@domain.com
+charlie@edu.in
